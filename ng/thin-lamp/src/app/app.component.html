@@ -1,8 +1,16 @@
 <mat-drawer-container class="drawer__container">
   <mat-drawer-content class="drawer__content"></mat-drawer-content>
   <mat-drawer #drawer mode="over" opened="true">
-    <mat-nav-list> 
-      
+    <mat-nav-list>
+      <div class="drawer__commands">
+        @for(cmd of commands; track cmd){
+        <button mat-raised-button class="drawer__command">
+          <mat-icon fontSet="material-symbols-outlined">
+            {{ cmd.icon }}
+          </mat-icon>
+        </button>
+        }
+      </div>
     </mat-nav-list>
   </mat-drawer>
 </mat-drawer-container>
