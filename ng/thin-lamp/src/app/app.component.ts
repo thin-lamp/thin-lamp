@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +21,14 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
+  @ViewChild('drawer') drawer?: MatDrawer;
+
+  // idle time in ms
+  private readonly idleTime = 5000;
+  // timer for counting idling
+  private idleTimer?: any;
+
   commands = [
     { label: 'Color', icon: 'palette' },
     { label: 'Connect', icon: 'mobile_share' },
@@ -29,5 +37,19 @@ export class AppComponent {
     { label: 'Info', icon: 'info_i' },
 
   ];
-  title = 'thin-lamp';
+
+  onMouseMove(event: MouseEvent) {
+    this.drawer?.open();
+    this.resetTimer();
+  }
+
+  private resetTimer() {
+    // clear the timer
+    clearTimeout(this.idleTimer);
+    // time again
+    this.idleTimer = setTimeout(() => {
+      // close the drawer if idle
+      this.drawer?.close();
+    }, this.idleTime);
+  }
 }

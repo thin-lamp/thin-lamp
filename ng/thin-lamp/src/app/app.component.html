@@ -1,4 +1,8 @@
-<mat-drawer-container class="drawer__container">
+<mat-drawer-container
+  hasBackdrop="false"
+  class="drawer__container"
+  (mousemove)="onMouseMove($event)"
+>
   <mat-drawer-content class="drawer__content"></mat-drawer-content>
   <mat-drawer #drawer mode="over" opened="true">
     <mat-nav-list>
