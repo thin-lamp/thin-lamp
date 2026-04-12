@@ -19,22 +19,30 @@ app-root {
 
         .drawer__content {}
 
-        .drawer__commands {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px;
+        .drawer__nav {
+            position: absolute;
+            bottom: 0px;
 
-            .drawer__command {
-                min-width: 40px;
-                /* make it square */
-                width: 40px;
-                height: 40px;
-                padding: 0;
+            .drawer__commands {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+                padding: 24px;
 
-                mat-icon {
-                    margin: 0;
+                .drawer__command {
+                    min-width: 40px;
+                    /* make it square */
+                    width: 72px;
+                    height: 72px;
+                    padding: 0;
+
+                    mat-icon {
+                        margin: 0;
+                        font-size: 36px;
+                        width: 36px;
+                        height: 36px;
+                    }
                 }
             }
         }
