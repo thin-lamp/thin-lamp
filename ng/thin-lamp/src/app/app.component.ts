@@ -6,9 +6,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserCommandHandler } from './user-commands/user-command-handler';
 
-
-
+// type for one time, button rendering use 
+type UserCommand = {
+  // label of the command button
+  label: string,
+  // icon of the command button
+  icon: string,
+  // handler of the command button
+  handler?: UserCommandHandler
+};
 
 @Component({
   selector: 'app-root',
@@ -32,7 +40,7 @@ export class AppComponent {
   // timer for counting idling
   private idleTimer?: any;
 
-  commands = [
+  commands: UserCommand[] = [
     { label: 'Color', icon: 'palette' },
     { label: 'Connect', icon: 'mobile_share' },
     { label: 'Fullscreen', icon: 'fullscreen' },
@@ -45,6 +53,10 @@ export class AppComponent {
   onMouseMove(event: MouseEvent) {
     this.drawer?.open();
     this.resetTimer();
+  }
+
+  onCommandClick(cmd: UserCommand) {
+    console.log(`${cmd.label} is clicked`);
   }
 
   private resetTimer() {
