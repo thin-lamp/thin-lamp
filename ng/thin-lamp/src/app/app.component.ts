@@ -9,16 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserCommandHandler } from './user-commands/user-command-handler';
 import { ToggleFullscreenCommand } from './user-commands/toggle-fullscreen-command';
 import { FullscreenService } from './shared/services/fullscreen.service';
-
-// type for one time, button rendering use 
-type UserCommand = {
-  // label of the command button
-  label: string,
-  // icon of the command button
-  icon: string,
-  // handler of the command button
-  handler?: UserCommandHandler
-};
+import { UserCommand } from './user-commands/user-command';
 
 @Component({
   selector: 'app-root',
