@@ -6,10 +6,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { UserCommandHandler } from './user-commands/user-command-handler';
-import { ToggleFullscreenCommand } from './user-commands/toggle-fullscreen-command';
-import { FullscreenService } from './shared/services/fullscreen.service';
 import { UserCommand } from './user-commands/user-command';
+import { CommandService } from './user-commands/command.service';
 
 @Component({
   selector: 'app-root',
@@ -35,16 +33,8 @@ export class AppComponent {
 
   commands: UserCommand[];
 
-  constructor(private fullscreenService: FullscreenService) {
-    this.commands = [
-      { label: 'Color', icon: 'palette' },
-      { label: 'Connect', icon: 'mobile_share' },
-      { label: 'Fullscreen', icon: 'fullscreen', handler: new ToggleFullscreenCommand(this.fullscreenService) },
-      { label: 'Stay awake', icon: 'owl' },
-      { label: 'Music', icon: 'music_note_2' },
-      { label: 'Info', icon: 'info_i' },
-
-    ];
+  constructor(private commandService: CommandService) {
+    this.commands = this.commandService.getCommands();
   }
 
   onMouseMove(event: MouseEvent) {
