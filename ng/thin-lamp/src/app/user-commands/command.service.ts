@@ -8,21 +8,43 @@ import { FullscreenService } from '../shared/services/fullscreen.service';
 })
 export class CommandService {
 
+  commands: UserCommand[] = [];
+
   constructor(
     private fullscreenService: FullscreenService
   ) {
-
+    this.initCommands();
   }
 
-  getCommands(): UserCommand[] {
-    return [
-      { label: 'Color', icon: 'palette' },
-      { label: 'Connect', icon: 'mobile_share' },
-      { label: 'Fullscreen', icon: 'fullscreen', handler: new ToggleFullscreenCommand(this.fullscreenService) },
-      { label: 'Stay awake', icon: 'owl' },
-      { label: 'Music', icon: 'music_note_2' },
-      { label: 'Info', icon: 'info_i' },
+  initCommands() {
+    this.commands = [
+      {
+        label: 'Color',
+        icon: () => 'palette'
+      }, {
+        label: 'Connect',
+        icon: () => 'mobile_share'
+      }, {
+        label: 'Fullscreen',
+        icon: () => this.fullscreenService.isFullscreen ? 'fullscreen_exit' : 'fullscreen',
+        handler: new ToggleFullscreenCommand(this.fullscreenService)
+      }, {
+        label: 'Stay awake',
+        icon: () => 'owl'
+      }, {
+        label: 'Music',
+        icon: () => 'music_note_2'
+      }, {
+        label: 'Info',
+        icon: () => 'info_i'
+      },
 
     ];
   }
+
+  getCommands(): UserCommand[] {
+    return this.commands;
+  }
 }
+
+

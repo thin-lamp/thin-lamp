@@ -43,7 +43,6 @@ export class AppComponent {
   }
 
   onCommandClick(cmd: UserCommand) {
-    console.log(`${cmd.label} is clicked`);
     cmd.handler?.execute();
   }
 
