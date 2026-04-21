@@ -5,6 +5,8 @@ export interface UserCommand {
     label: string,
     // icon of the command button
     icon: () => string,
+    // style for the command button
+    classes?: () => string,
     // handler of the command button
     handler?: UserCommandHandler
 }
