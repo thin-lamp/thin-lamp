@@ -11,9 +11,14 @@ export class CommandService {
 
   commands: UserCommand[] = [];
 
+  toggleFullscreenCommand: ToggleFullscreenCommand;
+  toggleWakeLockCommand: ToggleWakeLockCommand;
+
   constructor(
     private fullscreenService: FullscreenService
   ) {
+    this.toggleFullscreenCommand = new ToggleFullscreenCommand(fullscreenService);
+    this.toggleWakeLockCommand = new ToggleWakeLockCommand();
     this.initCommands();
   }
 
@@ -28,11 +33,12 @@ export class CommandService {
       }, {
         label: 'Fullscreen',
         icon: () => this.fullscreenService.isFullscreen ? 'fullscreen_exit' : 'fullscreen',
-        handler: new ToggleFullscreenCommand(this.fullscreenService)
+        handler: this.toggleFullscreenCommand
       }, {
         label: 'Stay awake',
         icon: () => 'owl',
-        handler: new ToggleWakeLockCommand()
+        classes: () => this.toggleWakeLockCommand.isWakeLockActive ? 'command__awake--active' : 'command__awake--inactive',
+        handler: this.toggleWakeLockCommand
       }, {
         label: 'Music',
         icon: () => 'music_note_2'

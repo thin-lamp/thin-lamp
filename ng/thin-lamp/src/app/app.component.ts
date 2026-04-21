@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserCommand } from './user-commands/user-command';
 import { CommandService } from './user-commands/command.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { CommandService } from './user-commands/command.service';
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgClass
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

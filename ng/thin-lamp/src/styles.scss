@@ -44,6 +44,11 @@ app-root {
                         height: 36px;
                     }
                 }
+
+                .drawer__command.command__awake--active {
+                    color: var(--mat-sys-on-primary) !important;
+                    background-color: var(--mat-sys-primary) !important;
+                }
             }
         }
     }

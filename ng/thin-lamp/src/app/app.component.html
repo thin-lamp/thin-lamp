@@ -13,6 +13,7 @@
           matTooltip="{{ cmd.label }}"
           matTooltipPosition="right"
           class="drawer__command"
+          [ngClass]="cmd.classes?.()"
           (click)="onCommandClick(cmd)"
         >
           <mat-icon fontSet="material-symbols-outlined">
