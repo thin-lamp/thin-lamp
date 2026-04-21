@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserCommand } from './user-command';
 import { ToggleFullscreenCommand } from './toggle-fullscreen-command';
 import { FullscreenService } from '../shared/services/fullscreen.service';
+import { ToggleWakeLockCommand } from './toggle-wake-lock-command';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,8 @@ export class CommandService {
         handler: new ToggleFullscreenCommand(this.fullscreenService)
       }, {
         label: 'Stay awake',
-        icon: () => 'owl'
+        icon: () => 'owl',
+        handler: new ToggleWakeLockCommand()
       }, {
         label: 'Music',
         icon: () => 'music_note_2'
