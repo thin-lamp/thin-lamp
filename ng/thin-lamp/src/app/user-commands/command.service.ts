@@ -3,6 +3,8 @@ import { UserCommand } from './user-command';
 import { ToggleFullscreenCommand } from './toggle-fullscreen-command';
 import { FullscreenService } from '../shared/services/fullscreen.service';
 import { ToggleWakeLockCommand } from './toggle-wake-lock-command';
+import { OpenColorPickerCommand } from './open-color-picker-command';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +15,16 @@ export class CommandService {
 
   toggleFullscreenCommand: ToggleFullscreenCommand;
   toggleWakeLockCommand: ToggleWakeLockCommand;
+  openColorPickerCommand: OpenColorPickerCommand;
 
   constructor(
-    private fullscreenService: FullscreenService
+    private fullscreenService: FullscreenService,
+    private dialog: MatDialog
   ) {
     this.toggleFullscreenCommand = new ToggleFullscreenCommand(fullscreenService);
     this.toggleWakeLockCommand = new ToggleWakeLockCommand();
+    this.openColorPickerCommand = new OpenColorPickerCommand(dialog);
+
     this.initCommands();
   }
 
@@ -26,7 +32,8 @@ export class CommandService {
     this.commands = [
       {
         label: 'Color',
-        icon: () => 'palette'
+        icon: () => 'palette',
+        handler: this.openColorPickerCommand
       }, {
         label: 'Connect',
         icon: () => 'mobile_share'
