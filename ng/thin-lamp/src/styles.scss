@@ -53,3 +53,20 @@ app-root {
         }
     }
 }
+
+.colorpalette {
+
+    .colorpalette__shade.mat-mdc-radio-checked {
+        border-color: var(--mat-sys-primary) !important;
+    }
+
+    .colorpalette__shade {
+        border-width: 2px;
+        border-color: transparent;
+        border-style: solid;
+
+        .mdc-radio__background {
+            visibility: hidden;
+        }
+    }
+}

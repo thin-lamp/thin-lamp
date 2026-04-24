@@ -1,1 +1,22 @@
-<p>color-picker works!</p>
+<h2 mat-dialog-title>Choose yoru lamp color</h2>
+<mat-dialog-content>
+  <p>Select a color that helps you unwind.</p>
+  <mat-radio-group
+    class="colorpalette"
+    [style.gridTemplateColumns]="'repeat(' + columns + ',40px)'"
+  >
+    @for(color of colorPalette.flat(); track color) {
+    <mat-radio-button
+      [value]="color"
+      [style.--preview-color]="color"
+      class="colorpalette__shade"
+    ></mat-radio-button>
+    }
+  </mat-radio-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Not now</button>
+  <button mat-button [mat-dialog-close]="lampColor" cdkFocusInitial>
+    Apply
+  </button>
+</mat-dialog-actions>
