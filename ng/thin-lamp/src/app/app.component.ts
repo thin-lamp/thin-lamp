@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserCommand } from './user-commands/user-command';
 import { CommandService } from './user-commands/command.service';
 import { NgClass } from '@angular/common';
+import { IdleTimeoutService } from './shared/services/idle-timeout.service';
 
 @Component({
   selector: 'app-root',
@@ -24,37 +25,34 @@ import { NgClass } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   @ViewChild('drawer') drawer?: MatDrawer;
 
-  // idle time in ms
-  private readonly idleTime = 3000;
-  // timer for counting idling
-  private idleTimer?: any;
 
   commands: UserCommand[];
 
-  constructor(private commandService: CommandService) {
+  constructor(
+    private commandService: CommandService,
+    private idleService: IdleTimeoutService
+  ) {
     this.commands = this.commandService.getCommands();
+  }
+
+  ngOnInit(): void {
+    this.idleService.onIdle().subscribe(() => {
+      // close the drawer if idle
+      this.drawer?.close();
+    });
   }
 
   onMouseMove(event: MouseEvent) {
     this.drawer?.open();
-    this.resetTimer();
+    this.idleService.reset();
   }
 
   onCommandClick(cmd: UserCommand) {
     cmd.handler?.execute();
   }
 
-  private resetTimer() {
-    // clear the timer
-    clearTimeout(this.idleTimer);
-    // time again
-    this.idleTimer = setTimeout(() => {
-      // close the drawer if idle
-      this.drawer?.close();
-    }, this.idleTime);
-  }
 }
