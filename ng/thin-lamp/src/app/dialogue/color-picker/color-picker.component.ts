@@ -46,6 +46,7 @@ export class ColorPickerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // stop idle timer when this dialog is open
     this.idleService.stop();
   }
 

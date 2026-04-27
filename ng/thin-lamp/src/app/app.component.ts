@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -20,6 +21,7 @@ import { IdleTimeoutService } from './shared/services/idle-timeout.service';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
+    CdkDrag,
     NgClass
   ],
   templateUrl: './app.component.html',
@@ -27,8 +29,12 @@ import { IdleTimeoutService } from './shared/services/idle-timeout.service';
 })
 export class AppComponent implements OnInit {
 
+
   @ViewChild('drawer') drawer?: MatDrawer;
 
+  // control drawer backdrop visibility
+  backdropVisible: boolean = true;
+  drawerClosing: boolean = false;
 
   commands: UserCommand[];
 
@@ -40,6 +46,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.idleService.reset();
     this.idleService.onIdle().subscribe(() => {
       // close the drawer if idle
       this.drawer?.close();
@@ -55,4 +62,13 @@ export class AppComponent implements OnInit {
     cmd.handler?.execute();
   }
 
+  onDrawerOpen() {
+    this.backdropVisible = true;
+    this.drawerClosing = false;
+  }
+
+  onDrawerClose() {
+    this.backdropVisible = false;
+    this.drawerClosing = true;
+  }
 }

@@ -3,8 +3,21 @@
   class="drawer__container"
   (mousemove)="onMouseMove($event)"
 >
-  <mat-drawer-content class="drawer__content"></mat-drawer-content>
-  <mat-drawer #drawer mode="over" opened="true">
+  <mat-drawer-content class="drawer__content">
+    <div
+      class="drawer__backdrop"
+      [class.drawer__backdrop--fade]="backdropVisible"
+    ></div>
+  </mat-drawer-content>
+  <mat-drawer
+    #drawer
+    mode="over"
+    opened="true"
+    class="drawer drawer--transparent"
+    [class.drawer--closing]="!drawerClosing"
+    (openedStart)="onDrawerOpen()"
+    (closedStart)="onDrawerClose()"
+  >
     <mat-nav-list class="drawer__nav">
       <div class="drawer__commands">
         @for(cmd of commands; track cmd){
