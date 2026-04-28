@@ -8,6 +8,7 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { IdleTimeoutService } from '../../shared/services/idle-timeout.service';
 import { ColorCatalogService } from '../../shared/services/color-catalog.service';
+import { AmbientColorService } from '../../shared/services/ambient-color.service';
 
 @Component({
   selector: 'tl-color-picker',
@@ -29,15 +30,18 @@ export class ColorPickerComponent implements OnInit {
 
   readonly colorPalette: string[][];
 
-  lampColor: string = '#F9A825';
+  lampColor: string;
 
-  previewColor: string = this.lampColor;
+  previewColor: string;
 
   constructor(
     private colorService: ColorCatalogService,
+    private ambientColorService: AmbientColorService,
     private idleService: IdleTimeoutService
   ) {
     this.colorPalette = colorService.getColors();
+    this.lampColor = ambientColorService.color;
+    this.previewColor = this.lampColor;
   }
 
   ngOnInit(): void {
@@ -56,6 +60,7 @@ export class ColorPickerComponent implements OnInit {
     this.idleService.reset();
     this.lampColor = this.previewColor;
     this.dialogRef.close(this.lampColor);
+    this.ambientColorService.color = this.lampColor;
   }
 
   get columns(): number {
