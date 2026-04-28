@@ -3,6 +3,7 @@
   <p>Select a color that helps you unwind.</p>
   <mat-radio-group
     class="colorpalette"
+    [(ngModel)]="previewColor"
     [style.gridTemplateColumns]="'repeat(' + columns + ',40px)'"
   >
     @for(color of colorPalette.flat(); track color) {
@@ -15,8 +16,6 @@
   </mat-radio-group>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Not now</button>
-  <button mat-button [mat-dialog-close]="lampColor" cdkFocusInitial>
-    Apply
-  </button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button (click)="onConfirm()" cdkFocusInitial>Apply</button>
 </mat-dialog-actions>

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,10 +7,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { ColorService } from '../../shared/services/color.service';
 import { IdleTimeoutService } from '../../shared/services/idle-timeout.service';
-
-
-
-
 
 @Component({
   selector: 'tl-color-picker',
@@ -32,32 +28,33 @@ export class ColorPickerComponent implements OnInit {
 
   readonly colorPalette: string[][];
 
-  lampColor: string = '';
+  lampColor: string = '#F9A825';
 
-  previewColor: string = '';
-
+  previewColor: string = this.lampColor;
 
   constructor(
     private colorService: ColorService,
     private idleService: IdleTimeoutService
   ) {
     this.colorPalette = colorService.getColors();
-    this.previewColor = this.lampColor;
   }
 
   ngOnInit(): void {
     // stop idle timer when this dialog is open
     this.idleService.stop();
+    this.previewColor = this.lampColor;
   }
 
   onCancel() {
-    this.dialogRef.close();
     this.idleService.reset();
+    this.previewColor = this.lampColor;
+    this.dialogRef.close(null);
   }
 
   onConfirm() {
-    console.log(this.lampColor);
     this.idleService.reset();
+    this.lampColor = this.previewColor;
+    this.dialogRef.close(this.lampColor);
   }
 
   get columns(): number {
