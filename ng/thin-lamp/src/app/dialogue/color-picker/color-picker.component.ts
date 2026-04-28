@@ -5,8 +5,9 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { ColorService } from '../../shared/services/color.service';
+
 import { IdleTimeoutService } from '../../shared/services/idle-timeout.service';
+import { ColorCatalogService } from '../../shared/services/color-catalog.service';
 
 @Component({
   selector: 'tl-color-picker',
@@ -33,7 +34,7 @@ export class ColorPickerComponent implements OnInit {
   previewColor: string = this.lampColor;
 
   constructor(
-    private colorService: ColorService,
+    private colorService: ColorCatalogService,
     private idleService: IdleTimeoutService
   ) {
     this.colorPalette = colorService.getColors();
